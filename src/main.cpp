@@ -23,6 +23,9 @@ void setup()
 
     workingValues = new WorkingValues(LED_COLUMN_COUNT, LED_ROW_COUNT, leds, LIGHT_PIN);
     workingMode = new WorkingModeOff(workingValues);
+
+    workingValues->setAllLeds(CRGB::Black);
+    FastLED.show();
 }
 
 void loop()
