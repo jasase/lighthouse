@@ -29,7 +29,12 @@ void loop()
 {
     while (true)
     {
+        WorkingMode* old = workingMode;
         workingMode = workingMode->Run();
+
+        if(old != workingMode) {
+            delete old;
+        }
 
         FastLED.show();
 
