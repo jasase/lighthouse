@@ -11,6 +11,8 @@ WorkingMode::WorkingMode(WorkingValues *workingValues)
     }
 }
 
+WorkingMode::~WorkingMode() {}
+
 int WorkingMode::getAverageOfLight()
 {
     this->lastLightValues[this->currentValueCounter] = this->getWorkingValues()->getLightValue();

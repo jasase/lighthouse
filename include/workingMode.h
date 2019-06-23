@@ -11,6 +11,7 @@ public:
     WorkingMode(WorkingValues *workingValues);
     virtual int getDelay();
     virtual WorkingMode *Run();
+    virtual ~WorkingMode();
 
 protected:
     WorkingValues *getWorkingValues();
@@ -28,6 +29,7 @@ public:
     WorkingModeStart(WorkingValues *workingValues);
     int getDelay();
     WorkingMode *Run();
+    virtual ~WorkingModeStart();
 private:
     int ledCoounter;
     void setIfMatching(int ledNumber, CRGB color);
@@ -39,6 +41,7 @@ public:
     WorkingModeOff(WorkingValues *workingValues);
     int getDelay();
     WorkingMode *Run();
+    virtual ~WorkingModeOff();
 
 private:
 };
@@ -49,6 +52,7 @@ public:
     WorkingModeOnMovingLight(WorkingValues *workingValues);
     int getDelay();
     WorkingMode *Run();
+    virtual ~WorkingModeOnMovingLight();
 
 private:
     int columnCounter;

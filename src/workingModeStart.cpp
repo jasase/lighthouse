@@ -6,6 +6,8 @@ WorkingModeStart::WorkingModeStart(WorkingValues *workingValues)
     this->ledCoounter = -2;
 }
 
+WorkingModeStart::~WorkingModeStart() {}
+
 int WorkingModeStart::getDelay()
 {
     return 500; //Wait 30 seconds for next check

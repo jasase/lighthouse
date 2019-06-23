@@ -2,7 +2,10 @@
 
 WorkingModeOff::WorkingModeOff(WorkingValues *workingValues)
     : WorkingMode(workingValues)
-{ }
+{
+}
+
+WorkingModeOff::~WorkingModeOff() {}
 
 int WorkingModeOff::getDelay()
 {
@@ -13,7 +16,7 @@ WorkingMode *WorkingModeOff::Run()
 {
     this->getWorkingValues()->setAllLeds(CRGB::Black);
 
-    if(this->getAverageOfLight() < 500) //Average lower than 500
+    if (this->getAverageOfLight() < 500) //Average lower than 500
     {
         return new WorkingModeOnMovingLight(this->getWorkingValues());
     }
