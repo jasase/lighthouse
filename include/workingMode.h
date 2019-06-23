@@ -21,10 +21,10 @@ private:
     int currentValueCounter;
 };
 
-class WorkingModeNotDark : public WorkingMode
+class WorkingModeOff : public WorkingMode
 {
 public:
-    WorkingModeNotDark(WorkingValues *workingValues);
+    WorkingModeOff(WorkingValues *workingValues);
     int getDelay();
     WorkingMode *Run();
 
@@ -37,8 +37,8 @@ public:
     WorkingModeOnMovingLight(WorkingValues *workingValues);
     int getDelay();
     WorkingMode *Run();
-
 private:
+    int columnCounter;
 };
 
 #endif

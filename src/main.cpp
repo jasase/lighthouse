@@ -22,7 +22,7 @@ void setup()
     FastLED.addLeds<WS2812B, DATA_PIN_WS2812>(leds, LED_COLUMN_COUNT + LED_ROW_COUNT);
 
     workingValues = new WorkingValues(LED_COLUMN_COUNT, LED_ROW_COUNT, leds, LIGHT_PIN);
-    workingMode = new WorkingModeNotDark(workingValues);
+    workingMode = new WorkingModeOff(workingValues);
 }
 
 void loop()

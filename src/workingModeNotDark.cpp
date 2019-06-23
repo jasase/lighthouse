@@ -1,15 +1,15 @@
 #include "workingMode.h"
 
-WorkingModeNotDark::WorkingModeNotDark(WorkingValues *workingValues)
+WorkingModeOff::WorkingModeOff(WorkingValues *workingValues)
     : WorkingMode(workingValues)
 { }
 
-int WorkingModeNotDark::getDelay()
+int WorkingModeOff::getDelay()
 {
     return 10000; //Wait 30 seconds for next check
 }
 
-WorkingMode *WorkingModeNotDark::Run()
+WorkingMode *WorkingModeOff::Run()
 {
     this->getWorkingValues()->setAllLeds(CRGB::Black);
 
