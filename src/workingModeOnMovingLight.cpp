@@ -21,8 +21,14 @@ WorkingMode *WorkingModeOnMovingLight::Run()
         return new WorkingModeOff(this->getWorkingValues());
     }
 
-    this->setColumnTo((this->columnCounter - 1) % this->getWorkingValues()->getLedColumCount(),CRGB::Black);
+    CRGB whiteHalf = CRGB::WhiteSmoke;
+    
+    whiteHalf.fadeLightBy(64);
+
+    this->setColumnTo((this->columnCounter - 2) % this->getWorkingValues()->getLedColumCount(),CRGB::Black);
+    this->setColumnTo((this->columnCounter - 1) % this->getWorkingValues()->getLedColumCount(),whiteHalf);
     this->setColumnTo(this->columnCounter,CRGB::White);
+    this->setColumnTo((this->columnCounter + 1) % this->getWorkingValues()->getLedColumCount(),whiteHalf);
 
     this->columnCounter++;
     if(this->columnCounter % this->getWorkingValues()->getLedColumCount() == 0) {
