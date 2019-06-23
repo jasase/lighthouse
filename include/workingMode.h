@@ -39,6 +39,7 @@ public:
     WorkingMode *Run();
 private:
     int columnCounter;
+    void setColumnTo(int column, CRGB color);
 };
 
 #endif
