@@ -15,6 +15,7 @@ int WorkingModeStart::getDelay()
 
 WorkingMode *WorkingModeStart::Run()
 {
+    setIfMatching(this->ledCoounter-1, CRGB::Black);
     setIfMatching(this->ledCoounter, CRGB::Red);
     setIfMatching(this->ledCoounter + 1, CRGB::Green);
     setIfMatching(this->ledCoounter + 2, CRGB::Blue);
