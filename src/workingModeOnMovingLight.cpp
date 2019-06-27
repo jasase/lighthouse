@@ -27,10 +27,15 @@ WorkingMode *WorkingModeOnMovingLight::Run()
 
     whiteHalf.fadeLightBy(64);
 
-    this->setColumnTo((this->columnCounter - 2) % this->getWorkingValues()->getLedColumCount(), CRGB::Black);
-    this->setColumnTo((this->columnCounter - 1) % this->getWorkingValues()->getLedColumCount(), whiteHalf);
-    this->setColumnTo(this->columnCounter, CRGB::White);
-    this->setColumnTo((this->columnCounter + 1) % this->getWorkingValues()->getLedColumCount(), whiteHalf);
+    for (int i = 0; i < this->getWorkingValues()->getLedRowCount(); i++)
+    {
+        int curCounter = this->columnCounter + i;
+
+        this->setColumnTo((curCounter - 2) % this->getWorkingValues()->getLedColumCount(), CRGB::Black);
+        this->setColumnTo((curCounter - 1) % this->getWorkingValues()->getLedColumCount(), whiteHalf);
+        this->setColumnTo(curCounter, CRGB::White);
+        this->setColumnTo((curCounter + 1) % this->getWorkingValues()->getLedColumCount(), whiteHalf);
+    }
 
     this->columnCounter++;
     if (this->columnCounter % this->getWorkingValues()->getLedColumCount() == 0)
