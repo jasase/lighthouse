@@ -24,7 +24,8 @@ WorkingMode *WorkingModeStart::Run()
     {
         return this;
     }
-    return new WorkingModeOff(this->getWorkingValues());
+    // return new WorkingModeOff(this->getWorkingValues());
+    return new WorkingModeOnMovingLight(this->getWorkingValues());
 }
 
 void WorkingModeStart::setIfMatching(int ledNumber, CRGB color)

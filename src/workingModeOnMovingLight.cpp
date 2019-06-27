@@ -18,10 +18,10 @@ WorkingMode *WorkingModeOnMovingLight::Run()
 {
     this->getWorkingValues()->setAllLeds(CRGB::Black);
 
-    if (this->getAverageOfLight() > 500) //Average lower than 500
-    {
-        return new WorkingModeOff(this->getWorkingValues());
-    }
+    // if (this->getAverageOfLight() > 500) //Average lower than 500
+    // {
+    //     return new WorkingModeOff(this->getWorkingValues());
+    // }
 
     CRGB whiteHalf = CRGB::WhiteSmoke;
 
