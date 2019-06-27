@@ -10,23 +10,23 @@ WorkingModeStart::~WorkingModeStart() {}
 
 int WorkingModeStart::getDelay()
 {
-    return 500; //Wait 30 seconds for next check
+    return 100;
 }
 
 WorkingMode *WorkingModeStart::Run()
-{
+{    
     setIfMatching(this->ledCoounter-1, CRGB::Black);
     setIfMatching(this->ledCoounter, CRGB::Red);
     setIfMatching(this->ledCoounter + 1, CRGB::Green);
     setIfMatching(this->ledCoounter + 2, CRGB::Blue);
 
-    this->ledCoounter++;
+    this->ledCoounter++;    
     if (this->ledCoounter < this->getWorkingValues()->getLedCount())
     {
         return this;
     }
-    // return new WorkingModeOff(this->getWorkingValues());
-    return new WorkingModeOnMovingLight(this->getWorkingValues());
+    return new WorkingModeOff(this->getWorkingValues());
+    //return new WorkingModeOnMovingLight(this->getWorkingValues());
 }
 
 void WorkingModeStart::setIfMatching(int ledNumber, CRGB color)

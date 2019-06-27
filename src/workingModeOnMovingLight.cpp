@@ -10,18 +10,18 @@ WorkingModeOnMovingLight::~WorkingModeOnMovingLight() {}
 
 int WorkingModeOnMovingLight::getDelay()
 {
-    return 7500 / this->getWorkingValues()->getLedColumCount();
-    // 7.5 second for one complete turn
+    return 5000 / this->getWorkingValues()->getLedColumCount();
+    // 5 second for one complete turn
 }
 
 WorkingMode *WorkingModeOnMovingLight::Run()
 {
     this->getWorkingValues()->setAllLeds(CRGB::Black);
 
-    // if (this->getAverageOfLight() > 500) //Average lower than 500
-    // {
-    //     return new WorkingModeOff(this->getWorkingValues());
-    // }
+    if (!this->getWorkingValues()->isDark())
+    {
+        return new WorkingModeOff(this->getWorkingValues());
+    }
 
     CRGB whiteHalf = CRGB::WhiteSmoke;
 

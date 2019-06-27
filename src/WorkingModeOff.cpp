@@ -9,14 +9,14 @@ WorkingModeOff::~WorkingModeOff() {}
 
 int WorkingModeOff::getDelay()
 {
-    return 10000; //Wait 30 seconds for next check
+    return 10000; //Wait 10 seconds for next check
 }
 
 WorkingMode *WorkingModeOff::Run()
 {
     this->getWorkingValues()->setAllLeds(CRGB::Black);
 
-    if (this->getAverageOfLight() < 500) //Average lower than 500
+    if (this->getWorkingValues()->isDark())
     {
         return new WorkingModeOnMovingLight(this->getWorkingValues());
     }

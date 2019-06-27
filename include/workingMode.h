@@ -3,8 +3,6 @@
 
 #include "workingValues.h"
 
-#define LAST_LIGHT_ARRAY_LENGTH 6
-
 class WorkingMode
 {
 public:
@@ -19,8 +17,6 @@ protected:
 
 private:
     WorkingValues *_workingValues;
-    int lastLightValues[LAST_LIGHT_ARRAY_LENGTH];
-    int currentValueCounter;
 };
 
 class WorkingModeStart : public WorkingMode

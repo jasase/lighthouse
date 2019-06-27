@@ -1,12 +1,13 @@
 #include "Arduino.h"
 #include "workingValues.h"
 
-WorkingValues::WorkingValues(int ledColumCount, int ledRowCount, CRGB *leds, int lightPin)
+WorkingValues::WorkingValues(int ledColumCount, int ledRowCount, CRGB *leds, int lightPin, LightDetection *lightDetection)
 {
     this->_ledColumnCount = ledColumCount;
     this->_ledRowCount = ledRowCount;
     this->_leds = leds;
     this->_lightPin = lightPin;
+    this->_lightDetection = lightDetection;
 }
 
 int WorkingValues::getLedColumCount()
@@ -19,7 +20,7 @@ int WorkingValues::getLedRowCount()
 }
 int WorkingValues::getLedCount()
 {
-    return this->_ledColumnCount + this->_ledRowCount;
+    return this->_ledColumnCount * this->_ledRowCount;
 }
 
 void WorkingValues::setLed(int ledNumber, CRGB color)
@@ -40,6 +41,6 @@ void WorkingValues::setAllLeds(CRGB color)
     }
 }
 
-int WorkingValues::getLightValue() {
-    return analogRead(this->_lightPin);
+bool WorkingValues::isDark() {
+    return this->_lightDetection->isDark();
 }
