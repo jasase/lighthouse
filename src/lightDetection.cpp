@@ -1,5 +1,5 @@
 #include "lightDetection.h"
-#include "arduino.h"
+#include "Arduino.h"
 
 #define TIME_30_SECONDS 10000
 
