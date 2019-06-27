@@ -36,7 +36,7 @@ void LightDetection::doDetection()
 float LightDetection::calculateAverage() {
     float avg = 0.0;
 
-    for (int i = 0; i < _values.size(); i++)
+    for (unsigned int i = 0; i < _values.size(); i++)
     {
         avg += _values[i];
     }
