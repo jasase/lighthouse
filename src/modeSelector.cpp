@@ -10,13 +10,20 @@ ModeSelector::ModeSelector(int pins[MODE_SELECTOR_PIN_COUNTER])
     }
 }
 
-bool ModeSelector::isLightOverrideActive() {
-    return (this->getCurrentValue() & 1) == 1; 
+bool ModeSelector::isLightOverrideActive()
+{
+    return (this->getCurrentValue() & 1) == 1;
 }
-bool ModeSelector::isDebugModeActive() {
+bool ModeSelector::isDebugModeActive()
+{
     return (this->getCurrentValue() & 2) == 2;
 }
-bool ModeSelector::isFlashLightModeActive() {
+bool ModeSelector::isMovingLightModeActive()
+{
+    return (this->getCurrentValue() & 64) == 0;
+}
+bool ModeSelector::isFlashLightModeActive()
+{
     return (this->getCurrentValue() & 64) == 4;
 }
 

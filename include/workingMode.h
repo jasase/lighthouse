@@ -10,14 +10,26 @@ public:
     virtual int getDelay();
     virtual WorkingMode *Run();
     virtual ~WorkingMode();
-    
 
 protected:
     WorkingValues *getWorkingValues();
-    int getAverageOfLight();    
+    int getAverageOfLight();
 
 private:
     WorkingValues *_workingValues;
+};
+
+class WorkingModeOn : public WorkingMode
+{
+public:
+    WorkingModeOn(WorkingValues *workingValues);
+    virtual int getDelay();
+    virtual WorkingMode *Run();
+    virtual ~WorkingModeOn();
+
+protected:
+    WorkingMode *workingModeSelection();
+    virtual bool isCurrentMode();
 };
 
 class WorkingModeStart : public WorkingMode
@@ -27,6 +39,7 @@ public:
     int getDelay();
     WorkingMode *Run();
     virtual ~WorkingModeStart();
+
 private:
     int ledCoounter;
     void setIfMatching(int ledNumber, CRGB color);
@@ -43,7 +56,7 @@ public:
 private:
 };
 
-class WorkingModeOnMovingLight : public WorkingMode
+class WorkingModeOnMovingLight : public WorkingModeOn
 {
 public:
     WorkingModeOnMovingLight(WorkingValues *workingValues);
@@ -51,12 +64,15 @@ public:
     WorkingMode *Run();
     virtual ~WorkingModeOnMovingLight();
 
+protected:
+    bool isCurrentMode();
+
 private:
     int columnCounter;
     void setColumnTo(int column, CRGB color);
 };
 
-class WorkingModeOnFlash : public WorkingMode
+class WorkingModeOnFlash : public WorkingModeOn
 {
 public:
     WorkingModeOnFlash(WorkingValues *workingValues);
@@ -64,8 +80,11 @@ public:
     WorkingMode *Run();
     virtual ~WorkingModeOnFlash();
 
+protected:
+    bool isCurrentMode();
+
 private:
-    int flashCounter;    
+    int _flashCounter;
 };
 
 class WorkingModeDebug : public WorkingMode
@@ -75,6 +94,7 @@ public:
     int getDelay();
     WorkingMode *Run();
     virtual ~WorkingModeDebug();
+
 private:
     CRGB pinToColor(int pin);
     CRGB boolToColor(bool value);

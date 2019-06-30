@@ -1,12 +1,17 @@
 #include "workingMode.h"
 
 WorkingModeOnMovingLight::WorkingModeOnMovingLight(WorkingValues *workingValues)
-    : WorkingMode(workingValues)
+    : WorkingModeOn(workingValues)
 {
     this->columnCounter = 0;
 }
 
 WorkingModeOnMovingLight::~WorkingModeOnMovingLight() {}
+
+bool WorkingModeOnMovingLight::isCurrentMode()
+{
+    return this->getWorkingValues()->getModeSelector()->isMovingLightModeActive();
+}
 
 int WorkingModeOnMovingLight::getDelay()
 {
@@ -17,11 +22,6 @@ int WorkingModeOnMovingLight::getDelay()
 WorkingMode *WorkingModeOnMovingLight::Run()
 {
     this->getWorkingValues()->setAllLeds(CRGB::Black);
-
-    if (!this->getWorkingValues()->getLightDetection()->isDark())
-    {
-        return new WorkingModeOff(this->getWorkingValues());
-    }
 
     CRGB whiteHalf = CRGB::WhiteSmoke;
 
@@ -42,7 +42,8 @@ WorkingMode *WorkingModeOnMovingLight::Run()
     {
         this->columnCounter = 0;
     }
-    return this;
+
+    return this->workingModeSelection();    
 }
 
 void WorkingModeOnMovingLight::setColumnTo(int column, CRGB color)
