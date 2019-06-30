@@ -46,5 +46,5 @@ LightDetection *WorkingValues::getLightDetection() {
 }
 
 ModeSelector *WorkingValues::getModeSelector() {
-    return this->getModeSelector();
+    return this->_modeSelector;
 }

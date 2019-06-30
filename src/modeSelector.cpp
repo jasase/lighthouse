@@ -20,22 +20,21 @@ bool ModeSelector::isDebugModeActive()
 }
 bool ModeSelector::isMovingLightModeActive()
 {
-    return (this->getCurrentValue() & 64) == 0;
+    return (this->getCurrentValue() & 60) == 0;
 }
 bool ModeSelector::isFlashLightModeActive()
 {
-    return (this->getCurrentValue() & 64) == 4;
+    return (this->getCurrentValue() & 60) == 4;
 }
 
 int ModeSelector::getCurrentValue()
-{
-
-    int curValue;
+{    
+    int curValue = 0;
 
     for (int i = 0; i < MODE_SELECTOR_PIN_COUNTER; i++)
-    {
-        int pinValue = digitalRead(this->_pins[i]);
-        curValue += pinValue << i;
+    { 
+        int pinValue = digitalRead(this->_pins[i]);     
+        curValue += pinValue << i;        
     }
 
     return curValue;

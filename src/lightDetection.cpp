@@ -15,20 +15,12 @@ void LightDetection::doDetection()
 
     if (cur - _lastReadTimestamp > TIME_30_SECONDS)
     {
-        Serial.print("Read light: ");
-
         for (int i = 0; i < READ_PER_RUN; i++)
         {
             int value = analogRead(_pin);
             _values.unshift(value);
-
-            Serial.print(value);
-            Serial.print(" ");
         }
         _lastReadTimestamp = cur;
-
-        Serial.print(" Avg: ");
-        Serial.println(calculateAverage());
     }
 }
 

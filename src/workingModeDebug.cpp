@@ -44,7 +44,12 @@ WorkingMode *WorkingModeDebug::Run()
         this->getWorkingValues()->setLed(i, color);
     }
 
-    return this;
+    if (this->getWorkingValues()->getModeSelector()->isDebugModeActive())
+    {
+        return this;
+    }
+
+    return new WorkingModeOff(this->getWorkingValues());
 }
 
 CRGB WorkingModeDebug::pinToColor(int pin)

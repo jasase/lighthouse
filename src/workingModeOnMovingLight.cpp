@@ -21,21 +21,25 @@ int WorkingModeOnMovingLight::getDelay()
 
 WorkingMode *WorkingModeOnMovingLight::Run()
 {
-    this->getWorkingValues()->setAllLeds(CRGB::Black);
+    if (this->columnCounter == 0)
+    {
+        FastLED.setBrightness(255);
+        this->getWorkingValues()->setAllLeds(CRGB::Black);
+    }
 
     CRGB whiteHalf = CRGB::WhiteSmoke;
 
-    whiteHalf.fadeLightBy(64);
+    whiteHalf = whiteHalf.fadeLightBy(225);
 
-    for (int i = 0; i < this->getWorkingValues()->getLedRowCount(); i++)
-    {
-        int curCounter = this->columnCounter + i;
+    // for (int i = 0; i < this->getWorkingValues()->getLedRowCount(); i++)
+    // {
+         int curCounter = this->columnCounter;
 
-        this->setColumnTo((curCounter - 2) % this->getWorkingValues()->getLedColumCount(), CRGB::Black);
+        this->setColumnTo((curCounter - 2) % this->getWorkingValues()->getLedColumCount(), CRGB::Black);        
         this->setColumnTo((curCounter - 1) % this->getWorkingValues()->getLedColumCount(), whiteHalf);
-        this->setColumnTo(curCounter, CRGB::White);
+        this->setColumnTo(curCounter, CRGB::White);        
         this->setColumnTo((curCounter + 1) % this->getWorkingValues()->getLedColumCount(), whiteHalf);
-    }
+    // }
 
     this->columnCounter++;
     if (this->columnCounter % this->getWorkingValues()->getLedColumCount() == 0)
@@ -43,7 +47,7 @@ WorkingMode *WorkingModeOnMovingLight::Run()
         this->columnCounter = 0;
     }
 
-    return this->workingModeSelection();    
+    return this->workingModeSelection();
 }
 
 void WorkingModeOnMovingLight::setColumnTo(int column, CRGB color)

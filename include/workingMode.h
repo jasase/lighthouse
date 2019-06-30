@@ -41,7 +41,8 @@ public:
     virtual ~WorkingModeStart();
 
 private:
-    int ledCoounter;
+    int _ledCounter;
+    int _internalLoop;
     void setIfMatching(int ledNumber, CRGB color);
 };
 

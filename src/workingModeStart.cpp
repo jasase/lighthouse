@@ -3,31 +3,59 @@
 WorkingModeStart::WorkingModeStart(WorkingValues *workingValues)
     : WorkingMode(workingValues)
 {
-    this->ledCoounter = -2;
+    this->_ledCounter = -2;
+    this->_internalLoop = 0;
 }
 
 WorkingModeStart::~WorkingModeStart() {}
 
 int WorkingModeStart::getDelay()
 {
-    return 50;
+    if (_internalLoop > 3)
+    {
+        return 20;
+    }
+    return 4000;
 }
 
 WorkingMode *WorkingModeStart::Run()
-{    
-    setIfMatching(this->ledCoounter-1, CRGB::Black);
-    setIfMatching(this->ledCoounter, CRGB::Red);
-    setIfMatching(this->ledCoounter + 1, CRGB::Green);
-    setIfMatching(this->ledCoounter + 2, CRGB::Blue);
-
-    this->ledCoounter++;    
-    if (this->ledCoounter <= this->getWorkingValues()->getLedCount())
+{
+    if (_internalLoop == 0)
     {
-        return this;
-    }    
+        this->getWorkingValues()->setAllLeds(CRGB::Green);
+        _internalLoop++;
+    }
+    else if (_internalLoop == 1)
+    {
+        this->getWorkingValues()->setAllLeds(CRGB::Red);
+        _internalLoop++;
+    }
+    else if (_internalLoop == 2)
+    {
+        this->getWorkingValues()->setAllLeds(CRGB::Blue);
+        _internalLoop++;
+    }
+    else if (_internalLoop == 3)
+    {
+        this->getWorkingValues()->setAllLeds(CRGB::Blue);
+        _internalLoop++;
+    }
+    else if (_internalLoop > 3)
+    {
+        CRGB color = CRGB::White;
 
-    return new WorkingModeOff(this->getWorkingValues());
-    //return new WorkingModeOnMovingLight(this->getWorkingValues());
+        color = color.fadeLightBy(_ledCounter);
+
+        this->getWorkingValues()->setAllLeds(color);
+
+        _ledCounter++;
+        if (_ledCounter > 255)
+        {
+            return new WorkingModeOff(this->getWorkingValues());
+        }
+    }
+
+    return this;
 }
 
 void WorkingModeStart::setIfMatching(int ledNumber, CRGB color)
