@@ -8,9 +8,6 @@
 #define DATA_PIN_WS2812 12 //PD0
 
 #define LIGHT_PIN 7
-#define LIGHT_OVERRIDE_PIN 7
-
-#define DEBUG_MODE_PIN 6
 
 #define LED_COLUMN_COUNT 23
 #define LED_ROW_COUNT 3
@@ -18,31 +15,34 @@
 WorkingMode *workingMode;
 WorkingValues *workingValues;
 LightDetection *lightDetection;
+ModeSelector *modeSelector;
 
 CRGB leds[LED_COLUMN_COUNT * LED_ROW_COUNT];
+int mode_selector_pins[MODE_SELECTOR_PIN_COUNTER];
 
 void setup()
 {
     Serial.begin(9600);
 
-    pinMode(DATA_PIN_WS2812, OUTPUT);
-    pinMode(LIGHT_OVERRIDE_PIN, INPUT);
-    pinMode(DEBUG_MODE_PIN, INPUT);
+    mode_selector_pins[0] = 7;
+    mode_selector_pins[1] = 6;
+    mode_selector_pins[2] = 5;
+    mode_selector_pins[3] = 4;
+    mode_selector_pins[4] = 3;
+    mode_selector_pins[5] = 2;
 
-    //Currently only used in debug mode
-    pinMode(5, INPUT);
-    pinMode(4, INPUT);
-    pinMode(3, INPUT);
-    pinMode(2, INPUT);
+    pinMode(DATA_PIN_WS2812, OUTPUT);
 
     pinMode(13, OUTPUT);
 
     FastLED.addLeds<NEOPIXEL, DATA_PIN_WS2812>(leds, LED_COLUMN_COUNT * LED_ROW_COUNT);
 
-    lightDetection = new LightDetection(LIGHT_PIN, LIGHT_OVERRIDE_PIN);
-    workingValues = new WorkingValues(LED_COLUMN_COUNT, LED_ROW_COUNT, leds, LIGHT_PIN, lightDetection);
 
-    if (digitalRead(DEBUG_MODE_PIN) == 1)
+    modeSelector = new ModeSelector(mode_selector_pins);
+    lightDetection = new LightDetection(LIGHT_PIN, modeSelector);
+    workingValues = new WorkingValues(LED_COLUMN_COUNT, LED_ROW_COUNT, leds, lightDetection, modeSelector);
+
+    if (modeSelector->isDebugModeActive())
     {
         Serial.println("Go to debug...");
         workingMode = new WorkingModeDebug(workingValues);

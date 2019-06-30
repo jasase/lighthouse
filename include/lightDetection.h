@@ -5,10 +5,12 @@
 #define READ_PER_RUN 10
 
 #include <CircularBuffer.h>
+#include "Arduino.h"
+#include "modeSelector.h"
 
 class LightDetection {
     public: 
-        LightDetection(int pin, int pinOverride);
+        LightDetection(int pin, ModeSelector* modeSelector);
         void doDetection();
         bool isDark();
         float getValue();
@@ -16,8 +18,8 @@ class LightDetection {
         float calculateAverage();    
         CircularBuffer<int,BUFFER_LENGTH * READ_PER_RUN> _values;
         unsigned long _lastReadTimestamp;
-        int _pin;
-        int _pinOverride;
+        int _pin;        
+        ModeSelector* _modeSelector;
 };
 
 #endif

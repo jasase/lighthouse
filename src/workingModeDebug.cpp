@@ -23,7 +23,7 @@ WorkingMode *WorkingModeDebug::Run()
     this->getWorkingValues()->setLed(4, pinToColor(6));
     this->getWorkingValues()->setLed(5, pinToColor(7));
 
-    this->getWorkingValues()->setLed(7, boolToColor(this->getWorkingValues()->isDark()));
+    this->getWorkingValues()->setLed(7, boolToColor(this->getWorkingValues()->getLightDetection()->isDark()));
 
     const int ledShift = 9;
     int barLedCount = this->getWorkingValues()->getLedCount() - ledShift;

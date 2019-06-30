@@ -56,6 +56,18 @@ private:
     void setColumnTo(int column, CRGB color);
 };
 
+class WorkingModeOnFlash : public WorkingMode
+{
+public:
+    WorkingModeOnFlash(WorkingValues *workingValues);
+    int getDelay();
+    WorkingMode *Run();
+    virtual ~WorkingModeOnFlash();
+
+private:
+    int flashCounter;    
+};
+
 class WorkingModeDebug : public WorkingMode
 {
 public:

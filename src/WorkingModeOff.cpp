@@ -16,7 +16,7 @@ WorkingMode *WorkingModeOff::Run()
 {
     this->getWorkingValues()->setAllLeds(CRGB::Black);
 
-    if (this->getWorkingValues()->isDark())
+    if (this->getWorkingValues()->getLightDetection()->isDark())
     {
         return new WorkingModeOnMovingLight(this->getWorkingValues());
     }

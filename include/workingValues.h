@@ -3,11 +3,12 @@
 
 #include "FastLED.h"
 #include "lightDetection.h"
+#include "modeSelector.h"
 
 class WorkingValues
 {
 public:
-    WorkingValues(int ledColumCount, int ledRowCount, CRGB *leds, int lightPin, LightDetection *lightDetection);
+    WorkingValues(int ledColumCount, int ledRowCount, CRGB *leds, LightDetection *lightDetection, ModeSelector *modeSelector);
     int getLedColumCount();
     int getLedRowCount();
     int getLedCount();
@@ -15,16 +16,15 @@ public:
     void setLed(int ledNumber, CRGB color);
     void setAllLeds(CRGB color);
 
-    bool isDark();
-
     LightDetection *getLightDetection();
+    ModeSelector *getModeSelector();
 
 private:
     int _ledColumnCount;
     int _ledRowCount;
-    int _lightPin;
     CRGB *_leds;
     LightDetection *_lightDetection;
+    ModeSelector *_modeSelector;
 };
 
 #endif

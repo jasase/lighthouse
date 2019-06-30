@@ -1,12 +1,11 @@
 #include "lightDetection.h"
-#include "Arduino.h"
 
 #define TIME_30_SECONDS 10000
 
-LightDetection::LightDetection(int pin, int pinoverride)
+LightDetection::LightDetection(int pin, ModeSelector* modeSelector)
 {
     _pin = pin;
-    _pinOverride = pinoverride;
+    _modeSelector = modeSelector;
     _lastReadTimestamp = TIME_30_SECONDS * -1;
 }
 
@@ -46,9 +45,8 @@ float LightDetection::calculateAverage()
 }
 
 bool LightDetection::isDark()
-{
-    int override = digitalRead(_pinOverride);
-    return override > 0 || this->calculateAverage() < 155.0;
+{    
+    return _modeSelector->isLightOverrideActive() || this->calculateAverage() < 155.0;
 }
 
 float LightDetection::getValue()
