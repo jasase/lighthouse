@@ -44,3 +44,7 @@ void WorkingValues::setAllLeds(CRGB color)
 bool WorkingValues::isDark() {
     return this->_lightDetection->isDark();
 }
+
+LightDetection *WorkingValues::getLightDetection() {
+    return this->_lightDetection;
+}

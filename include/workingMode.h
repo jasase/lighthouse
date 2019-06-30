@@ -10,10 +10,11 @@ public:
     virtual int getDelay();
     virtual WorkingMode *Run();
     virtual ~WorkingMode();
+    
 
 protected:
     WorkingValues *getWorkingValues();
-    int getAverageOfLight();
+    int getAverageOfLight();    
 
 private:
     WorkingValues *_workingValues;
@@ -53,6 +54,18 @@ public:
 private:
     int columnCounter;
     void setColumnTo(int column, CRGB color);
+};
+
+class WorkingModeDebug : public WorkingMode
+{
+public:
+    WorkingModeDebug(WorkingValues *workingValues);
+    int getDelay();
+    WorkingMode *Run();
+    virtual ~WorkingModeDebug();
+private:
+    CRGB pinToColor(int pin);
+    CRGB boolToColor(bool value);
 };
 
 #endif

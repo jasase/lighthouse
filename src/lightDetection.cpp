@@ -21,19 +21,20 @@ void LightDetection::doDetection()
         for (int i = 0; i < READ_PER_RUN; i++)
         {
             int value = analogRead(_pin);
-            _values.unshift(value);    
+            _values.unshift(value);
 
-            Serial.print(value);        
-            Serial.print(" "); 
-        }        
+            Serial.print(value);
+            Serial.print(" ");
+        }
         _lastReadTimestamp = cur;
 
-        Serial.print(" Avg: "); 
+        Serial.print(" Avg: ");
         Serial.println(calculateAverage());
     }
 }
 
-float LightDetection::calculateAverage() {
+float LightDetection::calculateAverage()
+{
     float avg = 0.0;
 
     for (unsigned int i = 0; i < _values.size(); i++)
@@ -46,6 +47,19 @@ float LightDetection::calculateAverage() {
 
 bool LightDetection::isDark()
 {
-    int override = digitalRead(_pinOverride);    
-    return override > 0 || this->calculateAverage() < 300.0;
+    int override = digitalRead(_pinOverride);
+    return override > 0 || this->calculateAverage() < 155.0;
+}
+
+float LightDetection::getValue()
+{
+    float avg = 0.0;
+
+    for (int i = 0; i < READ_PER_RUN; i++)
+    {
+        int value = analogRead(_pin);
+        avg += value;
+    }
+
+    return avg / READ_PER_RUN;
 }

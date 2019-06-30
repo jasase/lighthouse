@@ -7,8 +7,10 @@
 
 #define DATA_PIN_WS2812 12 //PD0
 
-#define LIGHT_PIN 1
-#define LIGHT_OVERRIDE_PIN 2
+#define LIGHT_PIN 7
+#define LIGHT_OVERRIDE_PIN 7
+
+#define DEBUG_MODE_PIN 6
 
 #define LED_COLUMN_COUNT 23
 #define LED_ROW_COUNT 3
@@ -25,16 +27,34 @@ void setup()
 
     pinMode(DATA_PIN_WS2812, OUTPUT);
     pinMode(LIGHT_OVERRIDE_PIN, INPUT);
+    pinMode(DEBUG_MODE_PIN, INPUT);
+
+    //Currently only used in debug mode
+    pinMode(5, INPUT);
+    pinMode(4, INPUT);
+    pinMode(3, INPUT);
+    pinMode(2, INPUT);
+
     pinMode(13, OUTPUT);
 
     FastLED.addLeds<NEOPIXEL, DATA_PIN_WS2812>(leds, LED_COLUMN_COUNT * LED_ROW_COUNT);
 
     lightDetection = new LightDetection(LIGHT_PIN, LIGHT_OVERRIDE_PIN);
     workingValues = new WorkingValues(LED_COLUMN_COUNT, LED_ROW_COUNT, leds, LIGHT_PIN, lightDetection);
-    workingMode = new WorkingModeStart(workingValues);    
 
-    workingValues->setAllLeds(CRGB::Black);    
-    FastLED.show();    
+    if (digitalRead(DEBUG_MODE_PIN) == 1)
+    {
+        Serial.println("Go to debug...");
+        workingMode = new WorkingModeDebug(workingValues);
+    }
+    else
+    {
+        Serial.println("Normal mode...");
+        workingMode = new WorkingModeStart(workingValues);
+    }
+
+    workingValues->setAllLeds(CRGB::Black);
+    FastLED.show();
 }
 
 void loop()
@@ -47,17 +67,18 @@ void loop()
         WorkingMode *old = workingMode;
         workingMode = workingMode->Run();
 
+        FastLED.show();
+        digitalWrite(13, debugLed);
+        debugLed = !debugLed;
+
         if (old != workingMode)
         {
             Serial.println("Switch mode");
             delete old;
         }
-
-        FastLED.show();
-        digitalWrite(13, debugLed);
-
-        debugLed = !debugLed;
-
-        FastLED.delay(workingMode->getDelay());
+        else
+        {
+            FastLED.delay(workingMode->getDelay());
+        }
     }
 }

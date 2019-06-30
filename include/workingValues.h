@@ -17,6 +17,8 @@ public:
 
     bool isDark();
 
+    LightDetection *getLightDetection();
+
 private:
     int _ledColumnCount;
     int _ledRowCount;

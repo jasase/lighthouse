@@ -10,7 +10,7 @@ WorkingModeStart::~WorkingModeStart() {}
 
 int WorkingModeStart::getDelay()
 {
-    return 100;
+    return 50;
 }
 
 WorkingMode *WorkingModeStart::Run()
@@ -21,10 +21,11 @@ WorkingMode *WorkingModeStart::Run()
     setIfMatching(this->ledCoounter + 2, CRGB::Blue);
 
     this->ledCoounter++;    
-    if (this->ledCoounter < this->getWorkingValues()->getLedCount())
+    if (this->ledCoounter <= this->getWorkingValues()->getLedCount())
     {
         return this;
-    }
+    }    
+
     return new WorkingModeOff(this->getWorkingValues());
     //return new WorkingModeOnMovingLight(this->getWorkingValues());
 }

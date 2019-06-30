@@ -10,7 +10,7 @@ WorkingModeOnMovingLight::~WorkingModeOnMovingLight() {}
 
 int WorkingModeOnMovingLight::getDelay()
 {
-    return 5000 / this->getWorkingValues()->getLedColumCount();
+    return 2000 / this->getWorkingValues()->getLedColumCount();
     // 5 second for one complete turn
 }
 
