@@ -10,6 +10,7 @@ With the switches you can change the working mode of the lighthouse:
 | Debug Mode         | x        | 1        | x        | x        | x        | x        |
 | Round Light        | x        | 0        | 0        | 0        | 0        | 0        |
 | Flash Light        | x        | 0        | 1        | 0        | 0        | 0        |
+| Green-Red Light    | x        | 0        | 0        | 1        | 0        | 0        |
 
 
 __Legend__
