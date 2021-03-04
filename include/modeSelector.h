@@ -10,6 +10,7 @@ class ModeSelector {
         bool isDebugModeActive();
         bool isMovingLightModeActive();
         bool isFlashLightModeActive();
+        bool isLighthouse1ModeActive();
     private:
         int _pins[MODE_SELECTOR_PIN_COUNTER];
         int getCurrentValue();

@@ -32,7 +32,12 @@ WorkingMode *WorkingModeOn::workingModeSelection()
     {
         Serial.println("Moving Light");
         return new WorkingModeOnMovingLight(this->getWorkingValues());
-    }    
+    }  
+    if (this->getWorkingValues()->getModeSelector()->isLighthouse1ModeActive())
+    {
+        Serial.println("Lighthouse Light");
+        return new workingModeLighthouse1(this->getWorkingValues());
+    }   
 
     Serial.println("Switching to Default Mode");
     return new WorkingModeOff(this->getWorkingValues());

@@ -88,6 +88,22 @@ private:
     int _flashCounter;
 };
 
+
+class workingModeLighthouse1 : public WorkingModeOn
+{
+public:
+    workingModeLighthouse1(WorkingValues *workingValues);
+    int getDelay();
+    WorkingMode *Run();
+    virtual ~workingModeLighthouse1();
+
+protected:
+    bool isCurrentMode();
+
+private:
+    int _position;
+};
+
 class WorkingModeDebug : public WorkingMode
 {
 public:

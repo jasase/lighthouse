@@ -1,5 +1,7 @@
 #include "workingMode.h"
 
+#define BITMAP_SWITCH3_TO_6 60
+
 ModeSelector::ModeSelector(int pins[MODE_SELECTOR_PIN_COUNTER])
 {
 
@@ -20,11 +22,15 @@ bool ModeSelector::isDebugModeActive()
 }
 bool ModeSelector::isMovingLightModeActive()
 {
-    return (this->getCurrentValue() & 60) == 0;
+    return (this->getCurrentValue() & BITMAP_SWITCH3_TO_6) == 0;
 }
 bool ModeSelector::isFlashLightModeActive()
 {
-    return (this->getCurrentValue() & 60) == 4;
+    return (this->getCurrentValue() & BITMAP_SWITCH3_TO_6) == 4;
+}
+bool ModeSelector::isLighthouse1ModeActive()
+{
+    return (this->getCurrentValue() & BITMAP_SWITCH3_TO_6) == 8;
 }
 
 int ModeSelector::getCurrentValue()
